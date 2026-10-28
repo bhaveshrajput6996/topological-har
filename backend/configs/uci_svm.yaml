@@ -1,0 +1,41 @@
+# Classic baseline: linear SVM on the dataset-provided engineered features.
+# tda/model sections are ignored on this path.
+project:
+  name: uci-svm-baseline
+  seed: 42
+
+dataset:
+  name: uci_har
+  signal_mode: engineered   # 561 features, SVM only
+
+window:
+  default:
+    duration_seconds: 2.56
+    overlap: null
+    max_windows: null
+    label_strategy: mode
+
+preprocessing:
+  interpolation: linear
+  max_interp_gap_s: 1.0
+  filter:
+    enabled: false
+  normalization: standard
+
+tda:
+  enabled: false
+
+model:
+  type: svm
+
+training:
+  batch_size: 256
+  epochs: 1
+  seed: 42
+
+evaluation:
+  cv_folds: 5
+  folds: null
+  svm_c: 1.0
+  svm_gamma: scale
+  svm_max_train_windows: 10000

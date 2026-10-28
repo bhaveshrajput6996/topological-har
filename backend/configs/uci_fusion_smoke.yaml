@@ -1,0 +1,50 @@
+# CSV smoke version of the fusion config: limited to the first 800 windows
+# for a quick verification run on real UCI HAR data (CPU friendly).
+project:
+  name: uci-fusion-smoke
+  seed: 42
+
+dataset:
+  name: uci_har
+  signal_mode: inertial
+  subjects: null
+  channels: null
+
+window:
+  default:
+    duration_seconds: 2.56
+    overlap: null
+    max_windows: 800       # deterministic first-800 subset, only for smoke
+    label_strategy: mode
+
+preprocessing:
+  interpolation: linear
+  max_interp_gap_s: 1.0
+  filter:
+    enabled: false
+  normalization: standard
+
+tda:
+  enabled: true
+  subsample:
+    enabled: true
+    max_points: 80
+    method: stride
+  persistence_image:
+    resolution: [20, 20]
+    bandwidth: 0.1
+  statistical_features: true
+
+model:
+  type: tda_deepconvlstm
+
+training:
+  batch_size: 64
+  epochs: 6
+  patience: 3
+  val_splits: 1
+  seed: 42
+
+evaluation:
+  cv_folds: 2
+  folds: [0]

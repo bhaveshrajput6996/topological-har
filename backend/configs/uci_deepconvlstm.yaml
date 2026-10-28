@@ -1,0 +1,55 @@
+# DeepConvLSTM baseline WITHOUT the TDA branch -> keeps the fire-port
+# comparison "does TDA help?" honest. Note: the backend force-disables the
+# TDA engine for any model other than tda_deepconvlstm (see parse/validate).
+project:
+  name: uci-deepconvlstm-baseline
+  seed: 42
+
+dataset:
+  name: uci_har
+  signal_mode: inertial
+  subjects: null
+  channels: null
+
+window:
+  default:
+    duration_seconds: 2.56
+    overlap: null
+    max_windows: null
+    label_strategy: mode
+
+preprocessing:
+  interpolation: linear
+  max_interp_gap_s: 1.0
+  filter:
+    enabled: false
+    type: butterworth
+    order: 4
+    cutoff_hz: null
+  normalization: standard
+
+tda:
+  enabled: false
+
+model:
+  type: deepconvlstm
+  conv_channels: [64, 128, 128, 256]
+  conv_kernel_size: 5
+  lstm_hidden: 128
+  dropout: 0.5
+
+training:
+  batch_size: 64
+  epochs: 30
+  patience: 6
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  lr_scheduler: plateau
+  scheduler_patience: 3
+  val_splits: 1
+  seed: 42
+
+evaluation:
+  cv_folds: 5
+  folds: null
+  inference_batch: 256

@@ -1,0 +1,32 @@
+[
+  {
+    "true_label": "SITTING",
+    "predicted_label": "SITTING",
+    "count": 14
+  },
+  {
+    "true_label": "SITTING",
+    "predicted_label": "STANDING",
+    "count": 4
+  },
+  {
+    "true_label": "STANDING",
+    "predicted_label": "SITTING",
+    "count": 8
+  },
+  {
+    "true_label": "STANDING",
+    "predicted_label": "STANDING",
+    "count": 11
+  },
+  {
+    "true_label": "STANDING",
+    "predicted_label": "WALKING",
+    "count": 2
+  },
+  {
+    "true_label": "WALKING",
+    "predicted_label": "WALKING",
+    "count": 15
+  }
+]

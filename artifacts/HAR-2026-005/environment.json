@@ -1,0 +1,17 @@
+{
+  "python": "3.13.2",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "machine": "AMD64",
+  "cpu_count": 4,
+  "processor": "Intel64 Family 6 Model 142 Stepping 10, GenuineIntel",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "scikit_learn": "1.9.1",
+  "seed": 42,
+  "torch": "2.14.1+cpu",
+  "cuda_available": false,
+  "gpu_available": false,
+  "gudhi": "3.13.0",
+  "ram_total_gb": 11.9,
+  "ram_available_gb": 2.17
+}

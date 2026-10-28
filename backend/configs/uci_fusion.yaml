@@ -1,0 +1,68 @@
+project:
+  name: uci-tda-fusion
+  seed: 42
+
+dataset:
+  name: uci_har
+  signal_mode: inertial   # presegmented 2.56 s windows @ 50 Hz, 9 channels
+  # subjects / channels: null = all (30 subjects, all 9 inertial channels)
+
+window:
+  default:
+    duration_seconds: 2.56   # dataset-provided window length
+    overlap: null
+    max_windows: null
+    label_strategy: mode
+
+preprocessing:
+  interpolation: linear
+  max_interp_gap_s: 1.0
+  filter:
+    enabled: false          # signature already low-pass filtered by dataset authors
+    type: butterworth
+    order: 4
+    cutoff_hz: null         # default: 20% of sampling rate when enabled
+  normalization: standard
+
+tda:
+  enabled: true
+  subsample:
+    enabled: true
+    max_points: 80
+    method: stride
+  metric: euclidean
+  homology_dimensions: [0, 1]
+  persistence_image:
+    resolution: [20, 20]
+    bandwidth: 0.1
+    weight_power: 1.0
+  statistical_features: true
+
+model:
+  type: tda_deepconvlstm
+  conv_channels: [64, 128, 128, 256]
+  conv_kernel_size: 5
+  lstm_hidden: 128
+  dropout: 0.5
+  head_hidden: [256, 128]
+  apply_scaler_to_tda: true
+
+training:
+  batch_size: 64
+  epochs: 30
+  patience: 6
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  lr_scheduler: plateau
+  scheduler_patience: 3
+  val_splits: 1
+  seed: 42
+
+evaluation:
+  cv_folds: 5
+  folds: null               # null = all folds
+  inference_batch: 256
+  latency_runs: 100
+  svm_c: 1.0
+  svm_gamma: scale
+  svm_max_train_windows: 5000

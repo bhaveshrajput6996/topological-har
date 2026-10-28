@@ -1,0 +1,26 @@
+# data + artifacts
+data/raw/
+data/interim/
+artifacts/
+*.db
+*.sqlite3
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# models / dumps
+*.pt
+*.pkl
+*.npy
+*.npz
+
+# os / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

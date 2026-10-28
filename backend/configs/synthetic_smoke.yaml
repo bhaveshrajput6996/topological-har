@@ -1,0 +1,51 @@
+# Fast end-to-end sanity run on the built-in synthetic dataset (30 s).
+# Verifies the whole pipeline incl. the TDA branch with a perfect H1 signal.
+project:
+  name: synthetic-smoke
+  seed: 42
+
+dataset:
+  name: synthetic
+
+window:
+  default:
+    duration_seconds: 2.0
+    overlap: 0.5
+    max_windows: null
+    label_strategy: mode
+
+preprocessing:
+  interpolation: linear
+  max_interp_gap_s: 1.0
+  filter:
+    enabled: false
+  normalization: standard
+
+tda:
+  enabled: true
+  subsample:
+    enabled: true
+    max_points: 80
+    method: stride
+  persistence_image:
+    resolution: [20, 20]
+    bandwidth: 0.1
+  statistical_features: true
+
+model:
+  type: tda_deepconvlstm
+  conv_channels: [32, 64, 64, 128]
+  lstm_hidden: 64
+  dropout: 0.3
+  head_hidden: [128, 64]
+
+training:
+  batch_size: 32
+  epochs: 8
+  patience: 3
+  val_splits: 1
+  seed: 42
+
+evaluation:
+  cv_folds: 2
+  folds: null
